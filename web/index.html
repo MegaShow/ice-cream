@@ -11,14 +11,29 @@
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.bootcss.com/showdown/1.7.1/showdown.min.js"></script>
+  <script src="js/func.js"></script>
   <title>冰镇</title>
 </head>
 
 <body>
   <div id="ice-cream-nav"></div>
+  <div class="container" style="padding-top:70px;">
+    <div id="ice-cream-markdown"></div>
+  </div>
   <script>
     $(function () {
       $('#ice-cream-nav').load('nav.html');
+      let converter = new showdown.Converter();
+      $.ajaxSetup({
+        cache: false
+      });
+      $.ajax({
+        url: "/md/index.md", contentType: "charset=UTF-8", async: true, success: (data) => {
+          let text = data;
+          let html = converter.makeHtml(text);
+          $('#ice-cream-markdown').html(html);
+        }
+      });
     });
   </script>
 </body>
