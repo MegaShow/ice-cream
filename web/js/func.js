@@ -18,3 +18,13 @@ function submit() {
   });
 }
 
+function getQueryString(name) { //获取get参数
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+  var r = window.location.search.substr(1).match(reg);
+  return r !== null ? unescape(r[2]) : null;
+}
+
+function getCookie(name) { //获取cookie
+  var arr, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
+  return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
+}

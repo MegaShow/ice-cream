@@ -20,6 +20,23 @@
         <li><a href="blog.html">博客</a></li>
         <li><a href="create.html">修改</a></li>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="ice-cream-navbar-right-user" href="https://oauth.xmatrix.studio/?sid=10002&args=login">登录</a></li>
+      </ul>
     </div>
   </div>
 </nav>
+
+<script>
+  $(function () {
+    if (getCookie('code') != null && getCookie('code') != '') {
+      $.post('/api/icytown/getInfo', { code: getCookie('code') }, (data) => {
+        if (data.status == 'success') {
+          $('#ice-cream-navbar-right-user').html(data.name);
+        } else {
+          document.cookie = 'code=';
+        }
+      });
+    }
+  });
+</script>
