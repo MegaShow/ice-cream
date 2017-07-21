@@ -11,26 +11,51 @@
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.bootcss.com/showdown/1.7.1/showdown.min.js"></script>
+  <script src="js/func.js"></script>
   <title>冰镇 | 博客</title>
 </head>
 
 <body>
   <div id="ice-cream-nav"></div>
   <div class="container" style="padding-top:70px;">
-    <div id="ice-cream-markdown"></div>
+    <div class="col-md-1"></div>
+    <div id="ice-cream-markdown" class="col-md-10"></div>
+    <div class="col-md-1">
+      <div data-spy="affix">
+        <button onclick="listNav()" type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div id="ice-cream-list-nav" style="background:#F00;color:#FFF;" class="col-md-2">给Zhenly递茶</div>
   </div>
   <script>
     $(function () {
       $('#ice-cream-nav').load('nav.html');
+      $('#ice-cream-list-nav').hide();
       let converter = new showdown.Converter();
       $.ajax({
-        url: "/md/http2.md", async: true, success: (data) => {
+        url: "./md/http2.md", async: true, success: (data) => {
           let text = data;
           let html = converter.makeHtml(text);
           $('#ice-cream-markdown').html(html);
         }
       });
     });
+
+    function listNav() {
+      let markdown = $('#ice-cream-markdown');
+      let listNav = $('#ice-cream-list-nav');
+      if (markdown.is('.col-md-10')) {
+        markdown.removeClass('col-md-10');
+        markdown.addClass('col-md-8');
+        listNav.show();
+      } else {
+        markdown.removeClass('col-md-8');
+        markdown.addClass('col-md-10');
+        listNav.hide();
+      }
+    }
   </script>
 </body>
 
