@@ -13,6 +13,11 @@
   <script src="https://cdn.bootcss.com/showdown/1.7.1/showdown.min.js"></script>
   <script src="js/func.js"></script>
   <title>冰镇 | 博客</title>
+  <style>
+    a :target {
+      padding-top: 160px;
+    }
+  </style>
 </head>
 
 <body>
@@ -27,7 +32,10 @@
         </button>
       </div>
     </div>
-    <div id="ice-cream-list-nav" style="background:#F00;color:#FFF;" class="col-md-2">给Zhenly递茶</div>
+    <div id="ice-cream-list-nav" class="col-md-2">
+      <div id="ice-cream-list-nav-list" data-spy="affix">
+      </div>
+    </div>
   </div>
   <script>
     $(function () {
@@ -39,6 +47,15 @@
           let text = data;
           let html = converter.makeHtml(text);
           $('#ice-cream-markdown').html(html);
+          let ice_cream_list_nav_list = $('#ice-cream-list-nav-list');
+          let h2 = $('h2');
+          let x_var = 0;
+          for (let x of h2) {
+            x.setAttribute('id', 'ice-cream-markdown-h' + x_var);
+            ice_cream_list_nav_list.append('<div><a href="#ice-cream-markdown-h' + x_var + '">' + x.innerHTML + '</a></div>');
+            x_var++;
+          }
+          ice_cream_list_nav_list.trigger('create');
         }
       });
     });
